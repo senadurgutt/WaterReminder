@@ -10,8 +10,11 @@ class Recordcontroller extends GetxController {
         Record(date: DateTime.now(), amount: 550),
       ].obs;
 
-  addRecord() {
+  void addRecord() {
     records.add(Record(date: DateTime.now(), amount: 880, note: "ddddddddddd"));
-    print(records.length);
+  }
+
+  void removeRecord(Record record) {
+    records.remove(record);
   }
 }

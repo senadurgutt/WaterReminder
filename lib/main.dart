@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/utils/colors.dart';
-import 'package:water_reminder/views/home.dart';
-import 'controllers/recordController.dart';
+import 'package:water_reminder/views/home_page.dart';
+import 'controllers/record_controller.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,10 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:water_reminder/controllers/recordController.dart';
-import 'package:water_reminder/views/graph.dart';
+import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:water_reminder/views/graph_page.dart';
 import 'package:water_reminder/utils/colors.dart';
-import 'package:water_reminder/views/History.dart';
+import 'package:water_reminder/views/History_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

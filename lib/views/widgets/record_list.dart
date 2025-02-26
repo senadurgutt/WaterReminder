@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:water_reminder/models/record.dart' as Models;
 
 class RecordList extends StatelessWidget {
-  const RecordList({super.key});
+  final Models.Record record;
+  RecordList({super.key, required this.record});
+
+  final Recordcontroller recordcontroller =
+      Get.find(); // az önce ilk kez çağırdığımız için put yapmıştık şimdi var olan geti bulmak için find
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,9 @@ class RecordList extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: null,
+                onPressed: () {
+                  recordcontroller.removeRecord(record);
+                },
                 color: Colors.red,
               ),
             ],
