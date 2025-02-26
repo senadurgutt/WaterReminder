@@ -1,6 +1,8 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:water_reminder/page/graph_view.dart';
+import 'package:get/get.dart';
+import 'package:water_reminder/controllers/recordController.dart';
+import 'package:water_reminder/views/graph.dart';
 import 'package:water_reminder/utils/colors.dart';
 import 'package:water_reminder/views/History.dart';
 
@@ -14,6 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentTab = 0;
   Widget selectedpages = GraphView();
+  final Recordcontroller recordcontroller = Get.put(Recordcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,11 @@ class _HomeState extends State<Home> {
       body: selectedpages,
 
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: null,
+        onPressed: recordcontroller.addRecord,
         backgroundColor: AppColors.backgroundColor,
 
-        shape: StadiumBorder(), //köşelere yuvarlaklık verir
+        shape: StadiumBorder(),
+        child: Icon(Icons.add), //köşelere yuvarlaklık verir
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
