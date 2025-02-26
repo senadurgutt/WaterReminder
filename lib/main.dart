@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:water_reminder/controller.dart';
 import 'package:get/get.dart';
-import 'package:water_reminder/page/home.dart';
 import 'package:water_reminder/utils/colors.dart';
+import 'package:water_reminder/views/home.dart';
+import 'controllers/recordController.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final controller = Get.put(Controller());
+  final controller = Get.put(Recordcontroller());
 
   MyApp({super.key});
   bool isChecked = false;
