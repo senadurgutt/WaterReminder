@@ -2,9 +2,10 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
-import 'package:water_reminder/views/graph_page.dart';
+import 'package:water_reminder/views/pages/add_record.dart';
+import 'package:water_reminder/views/pages/graph_page.dart';
 import 'package:water_reminder/utils/colors.dart';
-import 'package:water_reminder/views/History_page.dart';
+import 'package:water_reminder/views/pages/History_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,11 +22,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text("WATER")),
       body: selectedpages,
 
       floatingActionButton: FloatingActionButton(
-        onPressed: recordcontroller.addRecord,
+        onPressed: () {
+          Get.to(AddRecord());
+        },
         backgroundColor: AppColors.backgroundColor,
 
         shape: StadiumBorder(),
