@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class AddRecord extends StatefulWidget {
@@ -11,6 +12,8 @@ class AddRecord extends StatefulWidget {
 
 class _AddRecordState extends State<AddRecord> {
   int selectedValue = 200;
+  DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,23 +24,79 @@ class _AddRecordState extends State<AddRecord> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FaIcon(FontAwesomeIcons.glassWater, size: 50),
-                NumberPicker(
-                  value: selectedValue,
-                  minValue: 50,
-                  maxValue: 500,
-                  step: 50,
-                  haptics: true,
-                  onChanged:
-                      (value) => setState(() {
-                        selectedValue = value;
-                      }),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FaIcon(FontAwesomeIcons.glassWater, size: 50),
+                  NumberPicker(
+                    value: selectedValue,
+                    minValue: 50,
+                    maxValue: 500,
+                    step: 50,
+                    haptics: true,
+                    onChanged:
+                        (value) => setState(() {
+                          selectedValue = value;
+                        }),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                  Text("ml", style: TextStyle(fontSize: 30)),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () async {
+              var newDate = (await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(), // bugünü göster
+                firstDate: DateTime.now().subtract(
+                  Duration(days: 2),
+                ), // en geç düne su eklenebilir
+                lastDate: DateTime.now(), // bugünden sonraki tarih seçilemez
+              ));
+              if (newDate != null) {
+                // eğer tarih seçilmişse onu tutar
+                setState(() {
+                  selectedDate = newDate;
+                });
+              }
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    FaIcon(FontAwesomeIcons.calendar, size: 50),
+                    Expanded(
+                      child: Text(
+                        DateFormat("EEE,MMM d").format(selectedDate),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
-                Text("ml", style: TextStyle(fontSize: 30)),
-              ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: ElevatedButton(
+              onPressed: () {
+                // Kaydetme işlemini burada yap
+                print("Veri kaydedildi!");
+              },
+              child: Text("Save"),
             ),
           ),
         ],
