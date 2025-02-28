@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:water_reminder/models/record_model.dart';
 
 class AddRecord extends StatefulWidget {
   const AddRecord({super.key});
@@ -93,9 +97,26 @@ class _AddRecordState extends State<AddRecord> {
             padding: EdgeInsets.all(15),
             child: ElevatedButton(
               onPressed: () {
-                // Kaydetme işlemini burada yap
-                print("Veri kaydedildi!");
+                final newRecord = RecordModel(
+                  id:
+                      DateTime.now()
+                          .millisecondsSinceEpoch, // Benzersiz bir ID oluştur
+                  amount: selectedValue,
+                  date: selectedDate,
+                  note: "Manuel kayıt", // Varsayılan bir not ekleyebilirsin
+                );
+
+                final recordController =
+                    Get.find<Recordcontroller>(); // Controller'ı al
+                recordController.addRecord(newRecord); // Yeni kaydı ekle
+
+                print(
+                  "Kayıt Eklendi: ${newRecord.amount}ml - ${DateFormat("yyyy-MM-dd").format(newRecord.date)}",
+                );
+
+                Navigator.pop(context); // Kayıt sonrası önceki sayfaya dön
               },
+
               child: Text("Save"),
             ),
           ),

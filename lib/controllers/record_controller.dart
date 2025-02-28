@@ -1,20 +1,44 @@
 import 'package:get/get.dart';
-import 'package:water_reminder/models/record.dart';
+import 'package:water_reminder/models/record_model.dart';
+import 'package:water_reminder/services/database_service.dart';
 
 class Recordcontroller extends GetxController {
   var records =
-      <Record>[
-        Record(date: DateTime.now(), amount: 500, note: "efergerf"),
-        Record(date: DateTime.now(), amount: 150),
-        Record(date: DateTime.now(), amount: 300, note: "bıhjknjrgerf"),
-        Record(date: DateTime.now(), amount: 550),
+      <RecordModel>[
+        RecordModel(id: 1, amount: 200, date: DateTime.now(), note: "Not 1"),
+        RecordModel(id: 2, amount: 300, date: DateTime.now(), note: "Not 2"),
       ].obs;
-
-  /* void addRecord() {
-    records.add(Record(date: DateTime.now(), amount: 880, note: "ddddddddddd"));
+  @override
+  void onInit() {
+    super.onInit();
+    fetchRecords(); // 📌 Sayfa açıldığında verileri çek
   }
 
-  void removeRecord(Record record) {
-    records.remove(record);  
-  }*/
+  Future<void> fetchRecords() async {
+    final data = await DatabaseService.readData();
+    records.assignAll(data.map((json) => RecordModel.fromJson(json)).toList());
+  }
+
+  Future<void> addRecord(RecordModel record) async {
+    await DatabaseService.createData(
+      record.date.toIso8601String(), // 📌 DateTime'ı String'e çevir
+      record.amount,
+      record.note ?? "",
+    );
+    fetchRecords(); // 📌 Güncellenmiş listeyi al
+  }
+
+  void deleteRecord(int id) {
+    records.removeWhere((record) => record.id == id);
+  }
+
+  Future<void> updateRecord(
+    int id,
+    DateTime date,
+    int amount,
+    String note,
+  ) async {
+    await DatabaseService.updateData(id, date.toIso8601String(), amount, note);
+    fetchRecords(); // 📌 Güncellenmiş listeyi getir
+  }
 }

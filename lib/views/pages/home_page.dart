@@ -2,21 +2,30 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
-import 'package:water_reminder/services/DatabaseHelper.dart';
+import 'package:water_reminder/services/database_service.dart';
 import 'package:water_reminder/views/pages/add_record.dart';
 import 'package:water_reminder/views/pages/graph_page.dart';
 import 'package:water_reminder/utils/colors.dart';
 import 'package:water_reminder/views/pages/History_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final DatabaseService databaseService = DatabaseService.constructor();
+  List<Map<String, dynamic>> records = [];
+  bool isLoading = true;
+  void refreshData() async {
+    final data = await DatabaseService.getAllData();
+    setState(() {
+      records = data;
+      isLoading = false;
+    });
+  }
+
   int _currentTab = 0;
   Widget selectedpages = GraphView();
   final Recordcontroller recordcontroller = Get.put(Recordcontroller());
