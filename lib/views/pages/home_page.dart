@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:water_reminder/services/DatabaseHelper.dart';
 import 'package:water_reminder/views/pages/add_record.dart';
 import 'package:water_reminder/views/pages/graph_page.dart';
 import 'package:water_reminder/utils/colors.dart';
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final DatabaseService databaseService = DatabaseService.constructor();
   int _currentTab = 0;
   Widget selectedpages = GraphView();
   final Recordcontroller recordcontroller = Get.put(Recordcontroller());
