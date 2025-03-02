@@ -5,11 +5,7 @@ import 'package:water_reminder/controllers/record_controller.dart';
 import 'package:water_reminder/models/record_model.dart';
 
 class RecordList extends StatelessWidget {
-  final RecordModel record;
-  RecordList({super.key, required this.record});
-
-  final Recordcontroller recordcontroller =
-      Get.find(); // az önce ilk kez çağırdığımız için put yapmıştık şimdi var olan geti bulmak için find
+  final Recordcontroller recordcontroller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +13,10 @@ class RecordList extends StatelessWidget {
       if (recordcontroller.records.isEmpty) {
         return Center(child: Text("Kayıt bulunamadı"));
       }
+      print(
+        "Güncellenen liste: ${recordcontroller.records}",
+      ); // Konsolda kayıtları gör
+
       return ListView.builder(
         itemCount: recordcontroller.records.length,
         itemBuilder: (context, index) {
@@ -30,7 +30,7 @@ class RecordList extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: ListTile(
                 leading: Text(
-                  DateFormat("EEE, MMM d").format(DateTime.now()),
+                  DateFormat("EEE, MMM d").format(record.date),
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 title: Center(
@@ -51,8 +51,6 @@ class RecordList extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
-                        print("Düzenleme butonuna basıldı!"); // Test etmek için
-
                         _showEditDialog(context, record);
                       },
                       color: Colors.grey,
@@ -116,6 +114,7 @@ class RecordList extends StatelessWidget {
                   noteController.text,
                 );
                 Navigator.pop(context);
+                recordcontroller.fetchRecords();
               },
             ),
           ],

@@ -29,22 +29,7 @@ class _HistoryViewState extends State<HistoryView> {
           ),
         ),
       ),
-      body: Obx(
-        () =>
-            recordcontroller.records.isEmpty
-                ? Center(
-                  child: Text(
-                    "No Record",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                )
-                : ListView.builder(
-                  itemCount: recordcontroller.records.length,
-                  itemBuilder: (context, index) {
-                    return RecordList(record: recordcontroller.records[index]);
-                  },
-                ),
-      ),
+      body: RecordList(),
     );
   }
 }

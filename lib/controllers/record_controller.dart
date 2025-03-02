@@ -4,28 +4,43 @@ import 'package:water_reminder/services/database_service.dart';
 
 class Recordcontroller extends GetxController {
   var records =
-      <RecordModel>[
-        RecordModel(id: 1, amount: 200, date: DateTime.now(), note: "Not 1"),
-        RecordModel(id: 2, amount: 300, date: DateTime.now(), note: "Not 2"),
+      [
+        RecordModel(
+          id: 1,
+          amount: 2000,
+          date: DateTime.now(),
+          note: "Limonlu su",
+        ),
+        RecordModel(id: 2, amount: 1500, date: DateTime.now(), note: "Sade su"),
       ].obs;
   @override
   void onInit() {
     super.onInit();
-    fetchRecords(); // 📌 Sayfa açıldığında verileri çek
+    fetchRecords(); // 📌 Uygulama açıldığında verileri getir
   }
 
   Future<void> fetchRecords() async {
     final data = await DatabaseService.readData();
+    print("Veritabanından çekilen veri: $data"); // HATA VAR MI KONTROL ET
+
     records.assignAll(data.map((json) => RecordModel.fromJson(json)).toList());
+    records.refresh(); // 📌 Güncellenmiş listeyi ekrana getir
   }
 
   Future<void> addRecord(RecordModel record) async {
-    await DatabaseService.createData(
-      record.date.toIso8601String(), // 📌 DateTime'ı String'e çevir
+    final id = await DatabaseService.createData(
+      record.date.toIso8601String(),
       record.amount,
-      record.note ?? "",
+      record.note,
     );
-    fetchRecords(); // 📌 Güncellenmiş listeyi al
+    records.add(
+      RecordModel(
+        id: id, // Yeni eklenen ID
+        date: record.date,
+        amount: record.amount,
+        note: record.note,
+      ),
+    );
   }
 
   void deleteRecord(int id) {
@@ -39,6 +54,7 @@ class Recordcontroller extends GetxController {
     String note,
   ) async {
     await DatabaseService.updateData(id, date.toIso8601String(), amount, note);
-    fetchRecords(); // 📌 Güncellenmiş listeyi getir
+    await fetchRecords(); // 📌 Güncellenmiş listeyi getir
+    records.refresh(); // 📌 Güncellenmiş listeyi getir
   }
 }

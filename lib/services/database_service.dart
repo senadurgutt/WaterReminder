@@ -30,7 +30,7 @@ class DatabaseService {
     return database.query("records");
   }
 
-  static Future<int> createData(String date, int amount, String note) async {
+  static Future<int> createData(String date, int amount, String? note) async {
     final database = await db();
     return database.insert("records", {
       "date": date,
