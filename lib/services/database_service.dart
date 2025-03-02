@@ -65,8 +65,18 @@ class DatabaseService {
   }
 
   static Future<int> deleteData(int id) async {
-    final database = await db();
+    /*final database = await db();
     return database.delete("records", where: "id = ?", whereArgs: [id]);
+  */
+    final database = await db();
+    int result = await database.delete(
+      "records",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+
+    print("Silme işlemi sonucu: $result"); // 📌 Silme başarılı mı kontrol et
+    return result;
   }
 
   static Future<int> deleteAllData() async {

@@ -43,8 +43,12 @@ class Recordcontroller extends GetxController {
     );
   }
 
-  void deleteRecord(int id) {
+  Future<void> deleteRecord(int id) async {
+    int result = await DatabaseService.deleteData(id);
     records.removeWhere((record) => record.id == id);
+
+    await fetchRecords(); // 📌 Verileri tekrar çekelim
+    records.refresh();
   }
 
   Future<void> updateRecord(

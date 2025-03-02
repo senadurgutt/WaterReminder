@@ -59,6 +59,7 @@ class RecordList extends StatelessWidget {
                       icon: Icon(Icons.delete),
                       onPressed: () {
                         recordcontroller.deleteRecord(record.id);
+                        recordcontroller.fetchRecords();
                       },
                       color: Colors.red,
                     ),
