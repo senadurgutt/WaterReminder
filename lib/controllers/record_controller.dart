@@ -16,7 +16,11 @@ class Recordcontroller extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchRecords(); // 📌 Uygulama açıldığında verileri getir
+    fetchRecords(); //Uygulama açıldığında verileri getiriyo
+
+    Future.delayed(Duration(seconds: 2), () {
+      printTotalRecords(); // 📌 Konsolda çıktı almak için
+    });
   }
 
   Future<void> fetchRecords() async {
@@ -60,5 +64,32 @@ class Recordcontroller extends GetxController {
     await DatabaseService.updateData(id, date.toIso8601String(), amount, note);
     await fetchRecords(); // 📌 Güncellenmiş listeyi getir
     records.refresh(); // 📌 Güncellenmiş listeyi getir
+  }
+
+  // Günlük toplam su miktarını hesaplayan metod
+  Map<DateTime, int> totalRecords() {
+    Map<DateTime, int> totalMap = {};
+
+    for (var record in records) {
+      DateTime dateOnly = DateTime(
+        record.date.year,
+        record.date.month,
+        record.date.day,
+      );
+
+      if (totalMap.containsKey(dateOnly)) {
+        totalMap[dateOnly] = totalMap[dateOnly]! + record.amount;
+      } else {
+        totalMap[dateOnly] = record.amount;
+      }
+    }
+    return totalMap;
+  }
+
+  void printTotalRecords() {
+    var totals = totalRecords();
+    totals.forEach((date, totalAmount) {
+      print("$date tarihindeki toplam su tüketimi: $totalAmount ml");
+    });
   }
 }

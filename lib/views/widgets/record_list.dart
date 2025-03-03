@@ -13,14 +13,13 @@ class RecordList extends StatelessWidget {
       if (recordcontroller.records.isEmpty) {
         return Center(child: Text("Kayıt bulunamadı"));
       }
-      print(
-        "Güncellenen liste: ${recordcontroller.records}",
-      ); // Konsolda kayıtları gör
+      final sortedRecords = recordcontroller.records.toList(); //date sıralaması
+      sortedRecords.sort((a, b) => b.date.compareTo(a.date));
 
       return ListView.builder(
-        itemCount: recordcontroller.records.length,
+        itemCount: sortedRecords.length,
         itemBuilder: (context, index) {
-          final record = recordcontroller.records[index];
+          final record = sortedRecords[index];
 
           return Card(
             shape: RoundedRectangleBorder(
