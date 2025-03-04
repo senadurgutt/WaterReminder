@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   }
 
   int _currentTab = 0;
-  Widget selectedpages = GraphView();
+  Widget selectedpages = HistoryView();
   final Recordcontroller recordcontroller = Get.put(Recordcontroller());
 
   @override

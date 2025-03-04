@@ -17,10 +17,6 @@ class Recordcontroller extends GetxController {
   void onInit() {
     super.onInit();
     fetchRecords(); //Uygulama açıldığında verileri getiriyo
-
-    Future.delayed(Duration(seconds: 2), () {
-      printTotalRecords(); // 📌 Konsolda çıktı almak için
-    });
   }
 
   Future<void> fetchRecords() async {
@@ -67,6 +63,8 @@ class Recordcontroller extends GetxController {
   }
 
   // Günlük toplam su miktarını hesaplayan metod
+  /*
+
   Map<DateTime, int> totalRecords() {
     Map<DateTime, int> totalMap = {};
 
@@ -92,4 +90,5 @@ class Recordcontroller extends GetxController {
       print("$date tarihindeki toplam su tüketimi: $totalAmount ml");
     });
   }
+  */
 }
