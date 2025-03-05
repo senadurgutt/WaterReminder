@@ -4,15 +4,18 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
 
+// ignore: must_be_immutable
 class GraphView extends StatelessWidget {
-  GraphView({super.key}); // Günlük su tüketimi (litre)
+  GraphView({super.key});
 
   final List<double> waterData = [1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5];
+  final RxBool isBarTouched = false.obs;
+  RxInt touchedIndex = (-1).obs;
 
   List<String> getLast7Days() {
     return List.generate(7, (index) {
       DateTime day = DateTime.now().subtract(Duration(days: index));
-      return DateFormat('dd/MM').format(day); // Örn: "04/03"
+      return DateFormat('dd/MM').format(day);
     }).reversed.toList(); // Sıralamayı eski → yeni yap
   }
 
@@ -21,7 +24,7 @@ class GraphView extends StatelessWidget {
     List<String> last7Days = getLast7Days();
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -39,7 +42,7 @@ class GraphView extends StatelessWidget {
             onPressed: () {
               Get.find<Recordcontroller>().printLast7DaysRecords();
             },
-            child: Text("Son 7 Günü Göster"),
+            child: Text("Son 7 Gün Değerleri"),
           ),
 
           SizedBox(height: 10),
@@ -60,9 +63,8 @@ class GraphView extends StatelessWidget {
                 titlesData: FlTitlesData(
                   leftTitles: AxisTitles(
                     sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 40,
-                      getTitlesWidget: leftTitleWidgets,
+                      showTitles:
+                          false, // Bu kısmı "false" yaparak y eksenindeki litreyi kaldırıyoruz
                     ),
                   ),
                   bottomTitles: AxisTitles(
@@ -89,23 +91,34 @@ class GraphView extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 groupsSpace: 16,
 
-                /// 🛠 **BarTouchData ile Tooltip Ekle**
                 barTouchData: BarTouchData(
-                  enabled: true, // 🔥 Tooltip özelliğini aktif et
+                  enabled: true, // dokunma aktif edliryor
                   touchTooltipData: BarTouchTooltipData(
-                    tooltipBgColor: Colors.blueAccent, // Arkaplan rengi
-                    tooltipRoundedRadius: 8, // Tooltip köşelerini yuvarla
+                    tooltipBgColor: Colors.amber,
+                    tooltipRoundedRadius: 8,
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                      if (touchedIndex.value != groupIndex) return null;
+
                       return BarTooltipItem(
-                        "${waterData[groupIndex]}L", // 🔹 Sadece çubuğun üstüne gelindiğinde göster
+                        "${waterData[groupIndex]}L", // Sadece çubuğun üstüne gelindiğinde göster
                         TextStyle(
-                          color: Colors.white, // Yazı rengi
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       );
                     },
                   ),
+
+                  touchCallback: (event, touchResponse) {
+                    if (touchResponse != null && touchResponse.spot != null) {
+                      touchedIndex.value =
+                          touchResponse.spot!.touchedBarGroupIndex;
+                    } else {
+                      touchedIndex.value =
+                          -1; // Hiçbir çubuk seçili değilse gizle
+                    }
+                  },
                 ),
               ),
             ),
