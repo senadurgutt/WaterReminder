@@ -43,9 +43,9 @@ class Recordcontroller extends GetxController {
   }
 
   Future<void> deleteRecord(int id) async {
-    await DatabaseService.deleteData(id); // Veritabanından silme işlemi
-    records.removeWhere((record) => record.id == id); // Listeden de sil
-    await fetchRecords(); // Verileri tekrar çek
+    await DatabaseService.deleteData(id); // Veritabanından sil
+    records.removeWhere((record) => record.id == id); // Listeden sil
+    await fetchRecords(); // Verileri tekrar çek sayfayı yenile
     records.refresh();
   }
 
@@ -56,8 +56,8 @@ class Recordcontroller extends GetxController {
     String note,
   ) async {
     await DatabaseService.updateData(id, date.toIso8601String(), amount, note);
-    await fetchRecords(); // Güncellenmiş liste
-    records.refresh(); // Güncellenmiş listeyi getir
+    await fetchRecords();
+    records.refresh();
   }
 
   Map<DateTime, int> calculateDailyTotal() {

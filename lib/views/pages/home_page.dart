@@ -9,7 +9,7 @@ import 'package:water_reminder/utils/colors.dart';
 import 'package:water_reminder/views/pages/History_page.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();

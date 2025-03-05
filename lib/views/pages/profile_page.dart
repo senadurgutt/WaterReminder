@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
-import 'package:water_reminder/views/widgets/graph_widget.dart';
-import 'package:water_reminder/views/pages/profile_page.dart';
+import 'package:water_reminder/views/widgets/profile_widget.dart';
 
-class GraphPage extends StatefulWidget {
-  const GraphPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<GraphPage> createState() => _GraphViewState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _GraphViewState extends State<GraphPage> {
-  final Recordcontroller recordcontroller = Get.put(
-    Recordcontroller(),
-  ); //Getx controller sınıfını kullanabilmek için
+class _ProfilePageState extends State<ProfilePage> {
+  final Recordcontroller recordcontroller = Get.put(Recordcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,7 @@ class _GraphViewState extends State<GraphPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Graph",
+          "Profile",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -38,7 +35,7 @@ class _GraphViewState extends State<GraphPage> {
           ),
         ],
       ),
-      body: GraphView(),
+      body: ProfileWidget(),
     );
   }
 }
