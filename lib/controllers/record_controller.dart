@@ -11,7 +11,6 @@ class Recordcontroller extends GetxController {
           date: DateTime.now(),
           note: "Limonlu su",
         ),
-        RecordModel(id: 2, amount: 1500, date: DateTime.now(), note: "Sade su"),
       ].obs;
   @override
   void onInit() {
@@ -24,7 +23,7 @@ class Recordcontroller extends GetxController {
     print("Veritabanından çekilen veri: $data"); // HATA VAR MI KONTROL ET
 
     records.assignAll(data.map((json) => RecordModel.fromJson(json)).toList());
-    records.refresh(); // 📌 Güncellenmiş listeyi ekrana getir
+    records.refresh(); // Güncellenmiş listeyi ekrana getir
   }
 
   Future<void> addRecord(RecordModel record) async {
@@ -35,7 +34,7 @@ class Recordcontroller extends GetxController {
     );
     records.add(
       RecordModel(
-        id: id, // Yeni eklenen ID
+        id: id,
         date: record.date,
         amount: record.amount,
         note: record.note,
@@ -44,10 +43,9 @@ class Recordcontroller extends GetxController {
   }
 
   Future<void> deleteRecord(int id) async {
-    int result = await DatabaseService.deleteData(id);
-    records.removeWhere((record) => record.id == id);
-
-    await fetchRecords(); // 📌 Verileri tekrar çekelim
+    await DatabaseService.deleteData(id); // Veritabanından silme işlemi
+    records.removeWhere((record) => record.id == id); // Listeden de sil
+    await fetchRecords(); // Verileri tekrar çek
     records.refresh();
   }
 
@@ -58,8 +56,8 @@ class Recordcontroller extends GetxController {
     String note,
   ) async {
     await DatabaseService.updateData(id, date.toIso8601String(), amount, note);
-    await fetchRecords(); // 📌 Güncellenmiş listeyi getir
-    records.refresh(); // 📌 Güncellenmiş listeyi getir
+    await fetchRecords(); // Güncellenmiş liste
+    records.refresh(); // Güncellenmiş listeyi getir
   }
 
   Map<DateTime, int> calculateDailyTotal() {
@@ -97,13 +95,4 @@ class Recordcontroller extends GetxController {
       );
     }
   }
-
-  /*
-  void printTotalRecords() {
-    var totals = totalRecords();
-    totals.forEach((date, totalAmount) {
-      print("$date tarihindeki toplam su tüketimi: $totalAmount ml");
-    });
-  }
-  */
 }

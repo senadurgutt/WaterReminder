@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class DatabaseService {
