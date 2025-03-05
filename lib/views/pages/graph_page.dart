@@ -31,7 +31,10 @@ class _GraphViewState extends State<GraphView> {
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:water_reminder/controllers/record_controller.dart';
 
 void main() {
   runApp(MaterialApp(home: Scaffold(body: Center(child: GraphView()))));
@@ -73,6 +76,15 @@ class GraphView extends StatelessWidget {
               color: Colors.blueAccent,
             ),
           ),
+
+          // son 7 gündeki totalleri gödtrtiyo
+          ElevatedButton(
+            onPressed: () {
+              Get.find<Recordcontroller>().printLast7DaysRecords();
+            },
+            child: Text("Son 7 Günü Göster"),
+          ),
+
           SizedBox(height: 10),
           Text(
             "Litre cinsinden gösterim",

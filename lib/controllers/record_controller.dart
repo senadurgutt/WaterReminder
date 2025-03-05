@@ -62,10 +62,7 @@ class Recordcontroller extends GetxController {
     records.refresh(); // 📌 Güncellenmiş listeyi getir
   }
 
-  // Günlük toplam su miktarını hesaplayan metod
-  /*
-
-  Map<DateTime, int> totalRecords() {
+  Map<DateTime, int> calculateDailyTotal() {
     Map<DateTime, int> totalMap = {};
 
     for (var record in records) {
@@ -84,6 +81,24 @@ class Recordcontroller extends GetxController {
     return totalMap;
   }
 
+  void printLast7DaysRecords() {
+    DateTime today = DateTime.now();
+    Map<DateTime, int> totalMap = calculateDailyTotal();
+
+    for (int i = 6; i >= 0; i--) {
+      DateTime day = DateTime(
+        today.year,
+        today.month,
+        today.day,
+      ).subtract(Duration(days: i));
+      int amount = totalMap[day] ?? 0;
+      print(
+        "${day.toIso8601String().substring(0, 10)} tarihindeki toplam su tüketimi: $amount ml",
+      );
+    }
+  }
+
+  /*
   void printTotalRecords() {
     var totals = totalRecords();
     totals.forEach((date, totalAmount) {
