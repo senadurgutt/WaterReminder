@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
           onTap: (int) {
             setState(() {
               _currentTab = int;
-              selectedpages = (int == 0) ? GraphView() : HistoryView();
+              selectedpages = (int == 0) ? GraphPage() : HistoryView();
             });
 
             print(int);
