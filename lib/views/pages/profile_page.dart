@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:water_reminder/views/pages/home_page.dart';
 import 'package:water_reminder/views/widgets/profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -11,8 +12,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final Recordcontroller recordcontroller = Get.put(Recordcontroller());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle), // Profil ikonu
+            icon: Icon(Icons.home), // Profil ikonu
             onPressed: () {
-              Get.to(ProfilePage());
+              Get.to(Home());
             },
           ),
         ],
