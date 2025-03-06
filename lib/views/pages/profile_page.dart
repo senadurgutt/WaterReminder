@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:water_reminder/views/pages/home_page.dart';
 import 'package:water_reminder/views/widgets/profile_widget.dart';
 
