@@ -4,7 +4,7 @@ import 'package:water_reminder/views/pages/home_page.dart';
 
 class ProfilePage extends StatefulWidget {
   final Map<String, dynamic> userData;
-  ProfilePage({required this.userData});
+  const ProfilePage({super.key, required this.userData});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
