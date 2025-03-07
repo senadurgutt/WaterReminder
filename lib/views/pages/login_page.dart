@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_reminder/services/api_services.dart';
+import 'package:water_reminder/views/pages/profile_page.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
@@ -22,6 +23,12 @@ class _LoginPageState extends State<LoginPage> {
     if (response != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Giriş başarılı: ${response['token']}")),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfilePage(userData: response),
+        ),
       );
     } else {
       ScaffoldMessenger.of(
