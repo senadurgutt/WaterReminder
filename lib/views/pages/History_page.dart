@@ -33,7 +33,7 @@ class _HistoryViewState extends State<HistoryView> {
           IconButton(
             icon: Icon(Icons.account_circle), // Profil ikonu
             onPressed: () {
-              Get.to(ProfilePage);
+              Get.to(ProfilePage());
             },
           ),
         ],
