@@ -16,6 +16,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          //sola home ikonu
+          icon: Icon(Icons.home, color: Colors.white),
+          onPressed: () {
+            Get.to(Home());
+          },
+        ),
         centerTitle: true,
         title: Text(
           "Profile",
@@ -27,9 +34,10 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.home), // Profil ikonu
+            icon: Icon(Icons.logout, color: Colors.white), //sağa logout ikonu
             onPressed: () {
-              Get.to(Home());
+              userController.logout();
+              Get.offAll(LoginPage());
             },
           ),
         ],

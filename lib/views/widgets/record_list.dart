@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
+import 'package:water_reminder/views/widgets/delete_dialog.dart';
 import 'package:water_reminder/views/widgets/show_dialog.dart';
 
 class RecordList extends StatelessWidget {
@@ -57,8 +58,10 @@ class RecordList extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () {
-                        recordcontroller.deleteRecord(record.id);
-                        recordcontroller.fetchRecords();
+                        showDeleteDialog(context, () {
+                          recordcontroller.deleteRecord(record.id);
+                          recordcontroller.fetchRecords();
+                        });
                       },
                       color: Colors.red,
                     ),

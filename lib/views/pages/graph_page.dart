@@ -31,7 +31,7 @@ class _GraphViewState extends State<GraphPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle), // Profil ikonu
+            icon: Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {
               Get.to(ProfilePage());
             },

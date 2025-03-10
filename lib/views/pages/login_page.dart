@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:water_reminder/services/api_services.dart';
 import 'package:water_reminder/views/pages/profile_page.dart';
 import 'package:water_reminder/controllers/user_controller.dart';
@@ -9,6 +8,8 @@ final UserController userController = Get.put(UserController());
 
 // ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -24,16 +25,21 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
 
     final response = await apiService.login(username, password);
-    print("Gelen API Yanıtı: $response");
+
     if (response != null && response.containsKey('accessToken')) {
+      //response içinde accessToken varsa devam et
       userController.setUser(response);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Giriş başarılı: ${response['token']}")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Giriş başarılı")));
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ProfilePage(userData: response),
+          builder:
+              (context) => ProfilePage(
+                userData: response,
+              ), //response ile kullanıcı verilerini aktar
         ),
       );
     } else {
@@ -52,6 +58,11 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Login ',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 25),
             TextField(
               controller: usernameController,
               decoration: InputDecoration(
