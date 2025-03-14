@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:water_reminder/models/user_model.dart';
 import 'package:water_reminder/views/pages/home_page.dart';
 import 'package:water_reminder/views/pages/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
-  final Map<String, dynamic>? userData;
-  ProfilePage({super.key, this.userData});
+  final UserModel userData;
+  ProfilePage({super.key, required this.userData});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  UserModel currentUser = userController.userData.value;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
       body: Obx(() {
-        if (userController.userData.isEmpty) {
+        if (userController.userData.value.id == 0) {
           return Center(child: Text("Kullanıcı bilgileri bulunamadı!"));
         }
 
@@ -74,19 +76,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
-                      '${userController.userData['image']}',
+                      '${userController.userData.value.image}',
                     ), // API model image link
                   ),
                 ),
                 SizedBox(height: 12),
 
                 Text(
-                  "${userController.userData['firstName']} ${userController.userData['lastName']}",
+                  "${currentUser.firstName} ${userController.userData.value.lastName}",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '${userController.userData['email']}',
+                  currentUser.email,
                   style: TextStyle(
                     color: Color.fromARGB(255, 99, 98, 98),
                     fontWeight: FontWeight.bold,
@@ -94,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  '${userController.userData['gender']}',
+                  '${currentUser.gender}',
                   style: TextStyle(
                     color: Color.fromARGB(255, 99, 98, 98),
                     fontSize: 16,

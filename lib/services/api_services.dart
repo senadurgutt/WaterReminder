@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:water_reminder/models/user_model.dart';
 
 class ApiService {
   final String baseUrl = "https://dummyjson.com";
@@ -15,7 +16,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        return UserModel.fromJson(jsonDecode(response.body));
       } else {
         print("Giriş başarısız: ${response.body}");
         return null;

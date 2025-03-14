@@ -24,11 +24,11 @@ class _LoginPageState extends State<LoginPage> {
     String username = usernameController.text;
     String password = passwordController.text;
 
-    final response = await apiService.login(username, password);
+    final currentUser = await apiService.login(username, password);
 
-    if (response != null && response.containsKey('accessToken')) {
-      //response içinde accessToken varsa devam et
-      userController.setUser(response);
+    if (currentUser != null && currentUser.accessToken != null) {
+      //currentUser içinde accessToken varsa devam et
+      userController.setUser(currentUser);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Giriş başarılı")));
@@ -38,8 +38,8 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(
           builder:
               (context) => ProfilePage(
-                userData: response,
-              ), //response ile kullanıcı verilerini aktar
+                userData: currentUser,
+              ), //currentUser ile kullanıcı verilerini aktar
         ),
       );
     } else {
