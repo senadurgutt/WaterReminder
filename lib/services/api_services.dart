@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   final String baseUrl = "https://dummyjson.com";
 
-  Future<Map<String, dynamic>?> login(String username, String password) async {
+  Future<UserModel?> login(String username, String password) async {
     final url = Uri.parse("$baseUrl/auth/login");
 
     try {
