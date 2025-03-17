@@ -165,15 +165,14 @@ class NotificationController extends GetxController {
     );
   }
 
-  /* Formatlanmış saat
+  /* 
   void printFormattedTime() {
     DateTime now = DateTime.now().toLocal();
     String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-    print("📢 Formatlanmış Yerel Saat: $formattedTime");
+    print("Formatlanmış Yerel Saat: $formattedTime");
   }
   */
 
-  // Günlük bildirimleri belirli saatleri
   void scheduleDailyNotifications() async {
     await flutterLocalNotificationsPlugin.cancelAll();
 
@@ -203,7 +202,7 @@ class NotificationController extends GetxController {
     }
 
     final tzScheduledTime = tz.TZDateTime.from(scheduledTime, tz.local);
-    print("📢 Bildirim planlanan saat: $tzScheduledTime");
+    //   print(" Bildirim planlanan saat: $tzScheduledTime");
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       hour * 100 + minute,
