@@ -6,7 +6,6 @@ import 'package:water_reminder/controllers/user_controller.dart';
 
 final UserController userController = Get.put(UserController());
 
-// ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -27,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
     final currentUser = await apiService.login(username, password);
 
     if (currentUser != null && currentUser.accessToken != null) {
-      //currentUser içinde accessToken varsa devam et
       userController.setUser(currentUser);
       ScaffoldMessenger.of(
         context,
@@ -36,10 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder:
-              (context) => ProfilePage(
-                userData: currentUser,
-              ), //currentUser ile kullanıcı verilerini aktar
+          builder: (context) => ProfilePage(userData: currentUser),
         ),
       );
     } else {
@@ -53,40 +48,46 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Login ',
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 25),
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        // Kaydırılabilir yapı ekledik
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Login ',
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              obscureText: true,
-              controller: passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
+              SizedBox(height: 25),
+              TextField(
+                controller: usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                login(context);
-              },
-              child: Text('Login'),
-            ),
-          ],
+              SizedBox(height: 16),
+              TextField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity, // Butonun genişliğini tam ayarla
+                child: ElevatedButton(
+                  onPressed: () {
+                    login(context);
+                  },
+                  child: Text('Login'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

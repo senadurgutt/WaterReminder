@@ -37,13 +37,16 @@ dependencies:
   get: ^4.7.2
   animated_bottom_navigation_bar: ^1.4.0
   intl: ^0.20.2
-  freezed: ^2.5.8
+  freezed: ^3.0.3
   font_awesome_flutter: ^10.8.0
   numberpicker: ^2.1.2
   sqflite: ^2.4.1
   path: ^1.9.1
-  fl_chart: ^0.63.0
+  fl_chart: ^0.70.2
   http: ^1.3.0
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
+  permission_handler: ^11.4.0
   
 dev_dependencies:
   flutter_test:

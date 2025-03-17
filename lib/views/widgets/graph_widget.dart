@@ -107,7 +107,6 @@ class GraphView extends StatelessWidget {
                     barTouchData: BarTouchData(
                       enabled: true, // dokunma aktif edliryor
                       touchTooltipData: BarTouchTooltipData(
-                        tooltipBgColor: Colors.amber,
                         tooltipRoundedRadius: 8,
                         getTooltipItem: (group, groupIndex, rod, rodIndex) {
                           if (touchedIndex.value != groupIndex) return null;

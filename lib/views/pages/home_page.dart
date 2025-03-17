@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:water_reminder/controllers/notifications_controller.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
 import 'package:water_reminder/services/database_service.dart';
 import 'package:water_reminder/views/pages/add_record.dart';
@@ -9,7 +10,10 @@ import 'package:water_reminder/utils/colors.dart';
 import 'package:water_reminder/views/pages/History_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
+  final NotificationController _notificationController = Get.put(
+    NotificationController(),
+  );
 
   @override
   State<Home> createState() => _HomeState();
