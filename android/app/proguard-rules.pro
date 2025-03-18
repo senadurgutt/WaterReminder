@@ -1,0 +1,6 @@
+-keep class okhttp3.** { *; }
+-keep class retrofit2.** { *; }
+-keep class com.example.water_reminder.** { *; }
+-keep class okhttp3.** { *; }
+-keep class retrofit2.** { *; }
+-keep class com.example.water_reminder.** { *; }
