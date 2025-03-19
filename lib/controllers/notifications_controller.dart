@@ -228,10 +228,9 @@ class NotificationController extends GetxController {
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tzdata;
-import 'package:permission_handler/permission_handler.dart'; // 📌 İzin kontrolü için eklendi
+import 'package:permission_handler/permission_handler.dart'; // izin kontrolü
 
 class NotificationController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -240,10 +239,10 @@ class NotificationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initializeNotifications(); // 📌 Bildirimleri başlat
+    initializeNotifications(); // Bildirimleri başlat
   }
 
-  // 📌 Exact Alarm İznini Kontrol Et ve Gerekirse İste (Android 12+ için)
+  // Alarm iznini
   Future<void> requestExactAlarmPermission() async {
     if (Platform.isAndroid) {
       if (await Permission.scheduleExactAlarm.isDenied) {
@@ -252,15 +251,12 @@ class NotificationController extends GetxController {
     }
   }
 
-  // 📌 Bildirimleri başlatma ve saat dilimini ayarlama
+  //  saat dilimini ayarlama
   void initializeNotifications() async {
-    await requestExactAlarmPermission(); // 📌 Exact alarm izni iste (Android 12+)
-
-    // 📌 Saat dilimi ayarla
+    await requestExactAlarmPermission();
     tzdata.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Europe/Istanbul'));
 
-    // 📌 Bildirim izni iste
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin

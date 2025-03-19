@@ -20,8 +20,6 @@ class Recordcontroller extends GetxController {
 
   Future<void> fetchRecords() async {
     final data = await DatabaseService.readData();
-    print("Veritabanından çekilen veri: $data"); // HATA VAR MI KONTROL ET
-
     records.assignAll(data.map((json) => RecordModel.fromJson(json)).toList());
     records.refresh(); // Güncellenmiş listeyi ekrana getir
   }

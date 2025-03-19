@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_reminder/controllers/record_controller.dart';
 import 'package:water_reminder/controllers/user_controller.dart';
-
 import 'package:water_reminder/views/pages/profile_page.dart';
 import 'package:water_reminder/views/widgets/record_list.dart';
 
